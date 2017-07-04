@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hello-nodejs
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: hello-nodejs
+    spec:
+      containers:
+      - image: hello-nodejs:latest
+        imagePullPolicy: IfNotPresent
+        name: hello-nodejs
+        ports:
+        - containerPort: 8080      
