@@ -1,14 +1,16 @@
-#Hello NodeJS example for Kubernetes
-This repository contains a *Hello NodeJS* sample application that contains the necessary configuration files to be run on a [Kubernetes](https://kubernetes.io) cluster.
+# Hello NodeJS example for Kubernetes
 
-##Why?
+This repository contains a *Hello NodeJS* sample application that contains the necessary configuration files to be run on a [Kubernetes](https://kubernetes.io) cluster via Minikube.
+
+## Why?
+
 On June 27th 2017 I attended [a meetup organized by the Belgian Docker meetup group in Gent](https://www.meetup.com/Docker-Belgium/events/240475061/). The event was actually a Kubernetes workshop by [Benjamin Henrion](https://twitter.com/zoobab).
 
 I attended the workshop and created [a blog post](https://blog.feryn.eu/kubernetes-workshop/) and a [vlog episode](https://www.youtube.com/watch?v=y4tbQCFj7Ps) about it.
 
 This repository actually contains a sample application that is used in the vlog. It's an extract from Benjamin's workshop. The course material for the workshop can be found [on Benjamin's website](http://www.zoobab.com/kubernetes-workshop)
 
-##The code
+## The code
 
 The end goal is to run the NodeJS script below:
 
@@ -35,7 +37,7 @@ You can call the application by issuing a curl call:
 curl localhost:8080
 ```
 
-##What about Docker?
+## What about Docker?
 
 You can deploy the [server.js](server.js) script to any machine you want, but nowadays running the application in a *Docker* container is very popular.
 
@@ -47,7 +49,7 @@ docker build -t hello-nodejs .
 
 Eventually you could use `docker run` to run the application, but we'll let Kubernetes handle this.
 
-##What about Kubernetes?
+## What about Kubernetes?
 
 Running a Docker container ain't that hard, but running it on a cluster of nodes brings some interesting challenges to the table:
 
@@ -62,7 +64,8 @@ Kubernetes takes care of that and a lot more. To keep it simple, I'll just show 
 
 If all of this sounds confusing, go to [the Kubernetes website and read the part that explains the core concepts](https://kubernetes.io/docs/concepts/).
 
-###The deployment
+### The deployment
+
 A deployment contains information about the Docker image that will be deployed and what parameters that will be used. The end result is one or more [pods](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) that will be scheduled on the Kubernetes cluster.
 
 The [hello\_nodejs\_deployment.yml](hello_nodejs_deployment.yml) configuration file contains all this information and is run as follows:
@@ -71,7 +74,7 @@ The [hello\_nodejs\_deployment.yml](hello_nodejs_deployment.yml) configuration f
 kubectl create -f hello_nodejs_deployment.yml
 ```
 
-###The service
+### The service
 
 In order to expose these containers to the outside world, we can use [services](https://kubernetes.io/docs/concepts/services-networking/service/). They our bound to a deployment and expose an endpoint.
 
@@ -82,7 +85,8 @@ The [hello\_nodejs\_service.yml](hello_nodejs_service.yml) configuration file co
 kubectl create -f hello_nodejs_service.yml
 ```
 
-##What about Minikube?
+## What about Minikube?
+
 Running Kubernetes in production will require at least 3 nodes. Installing all the required software and configuring all the settings is quite a task.
 
 If you just want to run Kubernetes on your local computer without the hassle, there's a project called [Minikube](https://github.com/kubernetes/minikube). Minikube runs Kubernetes within a virtual machine. 
